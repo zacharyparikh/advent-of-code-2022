@@ -1,5 +1,5 @@
-mod day1;
+mod day2;
 
 fn main() {
-    println!("1: {:?}, 2: {:?}", day1::part1(), day1::part2());
+    println!("1: {:?}", day2::part1());
 }
