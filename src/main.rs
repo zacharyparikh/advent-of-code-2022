@@ -1,6 +1,6 @@
-mod day9;
+mod day10;
 
 fn main() {
-    let (part1, part2) = day9::solve();
-    println!("1: {:?}, 2: {:?}", part1, part2);
+    let (part1, part2) = day10::solve();
+    print!("1: {:?}, 2: \n{}\n", part1, part2);
 }
