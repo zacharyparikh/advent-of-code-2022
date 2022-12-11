@@ -1,9 +1,15 @@
-use std::error::Error;
 use std::fs::read_to_string;
 
-fn sort_calorie_sums() -> Result<Vec<i32>, Box<dyn Error>> {
-    let input = read_to_string("inputs/day1.txt")?;
+fn part1(sums: &Vec<i32>) -> i32 {
+    sums.first().unwrap().clone()
+}
 
+fn part2(sums: &Vec<i32>) -> i32 {
+    sums.iter().take(3).sum()
+}
+
+pub fn solve() -> (i32, i32) {
+    let input = read_to_string("inputs/day1.txt").unwrap();
     let mut sums: Vec<i32> = input
         .split("\n\n")
         .map(|calories| -> i32 {
@@ -16,15 +22,6 @@ fn sort_calorie_sums() -> Result<Vec<i32>, Box<dyn Error>> {
 
     sums.sort();
     sums.reverse();
-    Ok(sums)
-}
 
-thread_local!(static SORTED_CALORIE_SUMS: Vec<i32> = sort_calorie_sums().unwrap());
-
-pub fn part1() -> i32 {
-    SORTED_CALORIE_SUMS.with(|sums| sums.first().unwrap().clone())
-}
-
-pub fn part2() -> i32 {
-    SORTED_CALORIE_SUMS.with(|sums| sums.iter().take(3).sum())
+    (part1(&sums), part2(&sums))
 }

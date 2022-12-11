@@ -64,15 +64,9 @@ fn get_outcome_points(outcome: Outcome) -> u8 {
     }
 }
 
-pub fn part1() -> u32 {
-    let input = read_to_string("inputs/day2.txt").unwrap();
-    input
-        .split("\n")
-        .filter(|round| round.len() > 0)
-        .map(|round| {
-            let symbols: Vec<&str> = round.split(" ").collect();
-            (symbols[0], symbols[1])
-        })
+fn part1(symbols: &Vec<(String, String)>) -> u32 {
+    symbols
+        .iter()
         .map(|(opposing, response)| {
             let opposing_shape = get_shape(opposing).unwrap();
             let response_shape = get_shape(response).unwrap();
@@ -89,18 +83,12 @@ pub fn part1() -> u32 {
         .sum()
 }
 
-pub fn part2() -> u32 {
-    let input = read_to_string("inputs/day2.txt").unwrap();
-    input
-        .split("\n")
-        .filter(|round| round.len() > 0)
-        .map(|round| {
-            let symbols: Vec<&str> = round.split(" ").collect();
-            (symbols[0], symbols[1])
-        })
+fn part2(symbols: &Vec<(String, String)>) -> u32 {
+    symbols
+        .iter()
         .map(|(opposing_symbol, outcome_symbol)| {
             let opposing_shape = get_shape(opposing_symbol).unwrap();
-            let outcome = match outcome_symbol {
+            let outcome = match outcome_symbol.as_str() {
                 "X" => Some(LOSE),
                 "Y" => Some(DRAW),
                 "Z" => Some(WIN),
@@ -117,4 +105,18 @@ pub fn part2() -> u32 {
             response_points + get_outcome_points(outcome.unwrap()) as u32
         })
         .sum()
+}
+
+pub fn solve() -> (u32, u32) {
+    let input = read_to_string("inputs/day2.txt").unwrap();
+    let symbols: Vec<(String, String)> = input
+        .split("\n")
+        .filter(|round| round.len() > 0)
+        .map(|round| {
+            let symbols: Vec<&str> = round.split(" ").collect();
+            (symbols[0].to_owned(), symbols[1].to_owned())
+        })
+        .collect();
+
+    (part1(&symbols), part2(&symbols))
 }

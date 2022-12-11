@@ -85,7 +85,7 @@ fn move_items(
     }
 }
 
-pub fn part1() -> String {
+fn part1() -> String {
     let (mut item_stacks, instructions) = read_input();
 
     let instruction_re =
@@ -108,7 +108,7 @@ pub fn part1() -> String {
         .join("")
 }
 
-pub fn part2() -> String {
+fn part2() -> String {
     let (mut item_stacks, instructions) = read_input();
 
     let instruction_re =
@@ -129,4 +129,8 @@ pub fn part2() -> String {
         })
         .collect::<Vec<String>>()
         .join("")
+}
+
+pub fn solve() -> (String, String) {
+    (part1(), part2())
 }

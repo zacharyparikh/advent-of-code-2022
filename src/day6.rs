@@ -34,12 +34,15 @@ fn find_start_of_message(stream: Chars) -> usize {
     find_aux(stream, 14)
 }
 
-pub fn part1() -> usize {
-    let input = read_to_string("inputs/day6.txt").unwrap();
-    find_start_of_packet(input.chars())
+fn part1(stream: Chars) -> usize {
+    find_start_of_packet(stream)
 }
 
-pub fn part2() -> usize {
+fn part2(stream: Chars) -> usize {
+    find_start_of_message(stream)
+}
+
+pub fn solve() -> (usize, usize) {
     let input = read_to_string("inputs/day6.txt").unwrap();
-    find_start_of_message(input.chars())
+    (part1(input.chars()), part2(input.chars()))
 }

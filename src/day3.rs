@@ -10,10 +10,8 @@ fn get_priority(item: &char) -> u16 {
     }
 }
 
-pub fn part1() -> u16 {
-    let input = read_to_string("inputs/day3.txt").unwrap();
-    let rucksacks = input.split_terminator("\n");
-    let common_items = rucksacks.map(|rucksack| {
+fn part1(rucksacks: &Vec<&str>) -> u16 {
+    let common_items = rucksacks.iter().map(|rucksack| {
         let mid = rucksack.len() / 2;
         let (first_container, second_container) = rucksack.split_at(mid);
         let first_container_set: HashSet<char> = first_container.chars().collect();
@@ -32,9 +30,7 @@ pub fn part1() -> u16 {
     priority_sum
 }
 
-pub fn part2() -> u16 {
-    let input = read_to_string("inputs/day3.txt").unwrap();
-    let rucksacks: Vec<&str> = input.split_terminator("\n").collect();
+fn part2(rucksacks: &Vec<&str>) -> u16 {
     let group_badges = rucksacks.chunks(3).map(|group| {
         let intersection = group
             .iter()
@@ -47,4 +43,10 @@ pub fn part2() -> u16 {
 
     let priority_sum = group_badges.map(|badge| get_priority(&badge)).sum();
     priority_sum
+}
+
+pub fn solve() -> (u16, u16) {
+    let input = read_to_string("inputs/day3.txt").unwrap();
+    let rucksacks: Vec<&str> = input.split_terminator("\n").collect();
+    (part1(&rucksacks), part2(&rucksacks))
 }

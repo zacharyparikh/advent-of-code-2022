@@ -129,26 +129,30 @@ fn get_directory_sizes(file_tree_ref: Rc<RefCell<FileTree>>) -> Vec<u32> {
     sizes
 }
 
-pub fn part1() -> u32 {
-    let file_tree = read_input();
-    let directory_sizes = get_directory_sizes(file_tree);
+fn part1(directory_sizes: &Vec<u32>) -> u32 {
     directory_sizes
-        .into_iter()
-        .filter(|size| *size < 100_000)
+        .iter()
+        .filter(|size| **size <= 100_000)
         .sum()
 }
 
-pub fn part2() -> u32 {
-    let file_tree = read_input();
+fn part2(directory_sizes: &Vec<u32>) -> u32 {
     let total_disk_space = 70_000_000;
-    let used_space = file_tree.borrow().size;
+    let used_space = directory_sizes.first().unwrap();
     let free_space = total_disk_space - used_space;
     let needed_space = 30_000_000 - free_space;
 
-    let directory_sizes = get_directory_sizes(file_tree);
     directory_sizes
-        .into_iter()
-        .filter(|size| *size >= needed_space)
-        .min_by_key(|size| *size - needed_space)
+        .iter()
+        .filter(|size| **size >= needed_space)
+        .min_by_key(|size| **size - needed_space)
         .unwrap()
+        .clone()
+}
+
+pub fn solve() -> (u32, u32) {
+    let file_tree = read_input();
+    let directory_sizes = get_directory_sizes(file_tree);
+
+    (part1(&directory_sizes), part2(&directory_sizes))
 }
