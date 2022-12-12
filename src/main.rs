@@ -1,6 +1,6 @@
-mod day10;
+mod day11;
 
 fn main() {
-    let (part1, part2) = day10::solve();
+    let (part1, part2) = day11::solve();
     print!("1: \n{}\n\n2: \n{}\n", part1, part2);
 }
